@@ -1,8 +1,11 @@
 const btnEnviarChat = document.getElementById("btn-enviar-chat");
 const chatInput = document.getElementById("chat");
 const chatBox = document.querySelector(".chatbot ul.chatbox");
+const chatToggler = document.querySelector(".chatbot-toggler");
+const btnCerrarChat = document.querySelector(".chatbot .btn-cerrar");
 
 let strMensaje = '';
+const inputInitHeight = chatInput.scrollHeight;
 
 const crearChat = (mensaje, className, pensando = false) => {
     const chatLi = document.createElement("li");
@@ -26,7 +29,7 @@ const generarRespuesta = async (escribiendoMensaje) => {
     let objMensaje = escribiendoMensaje.querySelector("p");
 
     try {
-        const response = await fetch("https://api.allorigins.win/get?url=https://api.adviceslip.com/advice")
+        await fetch("https://api.allorigins.win/get?url=https://api.adviceslip.com/advice")
         .then(res => res.json())
         .then(data => {
 
@@ -34,6 +37,8 @@ const generarRespuesta = async (escribiendoMensaje) => {
 
             setTimeout(() => {
                 objMensaje.innerHTML = `${jsonData.slip.advice}`;
+
+                chatBox.scrollTo(0, chatBox.scrollHeight);
             }, 800);
         })
         .catch(err => {
@@ -43,10 +48,10 @@ const generarRespuesta = async (escribiendoMensaje) => {
             chatBox.scrollTo(0, chatBox.scrollHeight);
         });
     } catch (error) {
-        setTimeout(() => {
-            objMensaje.innerHTML = `Error al obtener la respuesta del bot`;
-        }, 800);
+        objMensaje.innerHTML = `Error al obtener la respuesta del bot`;
+        objMensaje.classList.add("error");
         console.error("Error al obtener la respuesta del bot:", error);
+        chatBox.scrollTo(0, chatBox.scrollHeight);
     }
 }
 
@@ -54,6 +59,9 @@ const enviarChat = () => {
     strMensaje = chatInput.value.trim();
 
     if(!strMensaje) return;
+
+    chatInput.value = "";
+    chatInput.style.height = `${inputInitHeight}px`;
 
     chatBox.appendChild(crearChat(strMensaje, "outgoing", false));
     chatBox.scrollTo(0, chatBox.scrollHeight);
@@ -66,4 +74,18 @@ const enviarChat = () => {
     }, 400)
 }
 
+chatInput.addEventListener("input", () => {
+    chatInput.style.height = `${inputInitHeight}px`;
+    chatInput.style.height = `${chatInput.scrollHeight}px`;
+});
+
+chatInput.addEventListener("keydown", (e) => {
+    if(e.key === "Enter" && !e.shiftKey && window.innerWidth > 800){
+        e.preventDefault();
+        enviarChat();
+    }
+});
+
 btnEnviarChat.addEventListener("click", enviarChat);
+chatToggler.addEventListener("click", () => document.body.classList.toggle("mostrar-chatbot"));
+btnCerrarChat.addEventListener("click", () => document.body.classList.remove("mostrar-chatbot"));
