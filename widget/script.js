@@ -5,7 +5,11 @@
     const startOpen = params.get('start') === 'open';
     const closable = params.get('closable') !== '0';
     const email = params.get('nombre');
-    const nombre = decodeURIComponent(params.get('nombre')  || 'Jos%C3%A9%20Alejandro');
+    const nombre = decodeURIComponent(params.get('nombre')  || '');
+
+    console.log("Desde Chatbot");
+    console.log(email);
+    console.log(nombre);
 
     const btnEnviarChat = document.getElementById("btn-enviar-chat");
     const chatInput = document.getElementById("chat");
