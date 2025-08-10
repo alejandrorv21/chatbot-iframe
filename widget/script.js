@@ -4,6 +4,8 @@
     const hideToggle = params.get('hideToggle') === '1';
     const startOpen = params.get('start') === 'open';
     const closable = params.get('closable') !== '0';
+    const email = params.get('nombre');
+    const nombre = decodeURIComponent(params.get('nombre')  || 'Jos%C3%A9%20Alejandro');
 
     const btnEnviarChat = document.getElementById("btn-enviar-chat");
     const chatInput = document.getElementById("chat");
@@ -69,7 +71,7 @@
                         chatNuevo.classList.add("d-none");
                         chatTexto.classList.remove("d-none");
 
-                        objMensaje.innerHTML = `Hola 😎 ¿En que puedo ayudarte?`;
+                        objMensaje.innerHTML = `Hola <b>${nombre}</b> 😎 ¿En que puedo ayudarte?`;
 
                         chatBox.scrollTo(0, chatBox.scrollHeight);
                     }, 800);
