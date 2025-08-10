@@ -170,6 +170,10 @@ body{
     visibility: hidden;
 }
 
+.chat-input .btn-opcion{
+    margin: 15px 25px;
+}
+
 .chat-input textarea:valid ~ span{
     visibility: visible;
 }
@@ -185,6 +189,21 @@ body{
 
 .dots span:nth-child(3) {
     animation-delay: 0.4s;
+}
+
+.btn-opcion{
+    border-radius: 12px;
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    box-shadow: none;
+    border: 1px solid #ccc;
+}
+
+.btn-opcion:hover{
+    background: #8ec640;
+    color: #fff;
 }
 
 @keyframes blink {
@@ -205,6 +224,14 @@ body{
 .fade.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+.d-none {
+    display: none !important;
+}
+
+.d-block {
+    display: block !important;
 }
 
 @media screen and (max-width: 940px) {
