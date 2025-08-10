@@ -4,7 +4,7 @@
     const hideToggle = params.get('hideToggle') === '1';
     const startOpen = params.get('start') === 'open';
     const closable = params.get('closable') !== '0';
-    const email = params.get('nombre');
+    const email = params.get('email');
     const nombre = decodeURIComponent(params.get('nombre')  || '');
 
     console.log("Desde Chatbot");
